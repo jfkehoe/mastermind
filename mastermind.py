@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import pygame
 import random
 
@@ -105,7 +107,29 @@ running = True
 fnt = pygame.font.Font(size=65)
 
 #want to be fancy and make an icon here. 
-#TBD
+#icon should be 32 x 32
+icon = pygame.Surface((32,32))
+
+icon_fnt = pygame.font.Font(size=32)
+t0 = icon_fnt.render("M", 1, "black")
+t1 = icon_fnt.render("M", 1, "white")
+tx = icon_fnt.render("MM", 1, "black")
+w = tx.get_width()
+h = tx.get_height()
+t0x = int((32-w)/2)
+t0x = 0
+t0y = int((32-h)/2)
+t1x = t0.get_width() - 3
+
+icon.fill("black")
+cx = 8
+for i in "blue yellow green red".split(" "):
+    r = pygame.draw.circle(icon, i, (cx, 16), 16)
+    cx += 8
+    
+icon.blit(t0, (t0x, t0y))
+icon.blit(t1, (t1x, t0y))
+pygame.display.set_icon(icon)
 
 
 #setup initial sprites
@@ -142,7 +166,7 @@ for yi in range(9,-1,-1):
 pins = PinCon()
 
 cy = height - 7 * square_size
-cx = width - 5 - square_size
+cx = x_start - 5 - square_size
 for c in "black white yellow blue red green".split(" "):
     r = pygame.Rect(cx, cy, square_size, square_size)
     cp = Pin(r, c)
